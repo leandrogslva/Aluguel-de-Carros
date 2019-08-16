@@ -10,6 +10,7 @@
                     v-model="novaConta.perfil" 
                     v-for="profs in perfils"
                     :key="profs"
+                    :rules="[rules.required]"
                     >
                         <v-radio color="indigo darken-2" :label="profs" :value="profs"></v-radio>
                     </v-radio-group>
@@ -136,10 +137,17 @@
                             color="indigo darken-2"
                             :loading="loadingFinalizarCriacaoDeConta"
                             style="margin-bottom: 10px; color: white; font-size: 13px"
-                            @click="criarConta()"
+                            @click="criarConta(); snackbarConta = true"
                             > Finalizar </v-btn>
+                            <v-snackbar 
+                            top
+                            v-model="snackbarConta"
+                            color="light-blue"
+                            :timeout="1500">
+                                Conta criada com sucesso
+                                <v-icon color="white">mdi-account-plus</v-icon>
+                            </v-snackbar>
                         </v-flex>
-                    
                     </v-layout>
                 </v-content>
             </v-form>
@@ -158,6 +166,7 @@ export default {
     
     data(){
         return{
+            snackbarConta: false,
             cpfMask: '###.###.###-##',
             cnhMask: '###########',
             telefoneMask: '(##)####-####', 

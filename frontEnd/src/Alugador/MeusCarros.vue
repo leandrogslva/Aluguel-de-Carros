@@ -22,7 +22,7 @@
 
                                 <v-btn
                                 text
-                                @click="excluirCarro(carros)">
+                                @click="dialogoDeExclusao = true; pegarCarroParaExcluir(carros)">
                                     <v-icon color="white">mdi-delete</v-icon>
                                 </v-btn>    
                         </v-toolbar>
@@ -81,6 +81,31 @@
 
                             </v-list-item-content>
                         </v-list-item>
+                        <v-dialog v-model="dialogoDeExclusao" width="265px">
+                            <v-card>
+                                <v-card-title class="elevation-2 indigo darken-3">Confirmar Exclusão</v-card-title>
+                                <v-card-text
+                                style="font-size:20px;
+                                color:black">
+                                    <br><br>
+                                    Tem certeza que quer excluir este carro?
+                                    <br><br><br><br>
+                                    <v-btn
+                                    text
+                                    color="indigo darken-3"
+                                    @click="dialogoDeExclusao = false">
+                                        Não
+                                    </v-btn>
+                                    <v-btn
+                                    text
+                                    style="float: right"
+                                    color="indigo darken-3"
+                                    @click="excluirCarro()">
+                                        Sim
+                                    </v-btn>
+                                </v-card-text>
+                            </v-card>
+                        </v-dialog>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -92,8 +117,11 @@
                         <v-icon color="white">mdi-emoticon-sad</v-icon>
                     </v-card-title>
                     <v-card-text 
-                    class="elevation-2">
-                        Você não possui nenhum carro publicado até o momento
+                    style="height: 250px; color: black;"
+                    class="elevation-2
+                    text-center
+                    headline"><br><br>
+                        Você não possui nenhum carro publicado até o momento...
                     </v-card-text>
                 </v-card>
             </v-container>
@@ -111,9 +139,11 @@ export default {
 
     data(){
         return{
+            dialogoDeExclusao: false,
             carrosParaAlugar: [],
             campoEditavel: false,
             objetoParaEditar: {},
+            objetoParaExcluir: {}
         }
     },
     
@@ -126,21 +156,24 @@ export default {
             }).catch(erro => console.log(erro))
         },
 
-        excluirCarro(carro){
-            console.log(carro)
-            service.apaga(carro)
-            this.carrosParaAlugar.splice(carro, 1);
+        excluirCarro(){
+            service.apaga(this.objetoParaExcluir)
+            this.carrosParaAlugar.splice(this.objetoParaExcluir, 1);
         },
         
         habilitarCamposParaEdicao(carro){
             this.objetoParaEditar = carro
-            console.log(this.objetoParaEditar)
         },
+        
         async editarCarro(){
             await service.atualiza(this.objetoParaEditar)
             .then(resposta => console.log(resposta))
             .catch(erro => console.log(erro))
             this.campoEditavel = !this.campoEditavel
+        },
+        
+        pegarCarroParaExcluir(carros){
+            this.objetoParaExcluir = carros
         }
     }
 }

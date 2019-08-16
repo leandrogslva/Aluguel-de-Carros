@@ -37,11 +37,11 @@
       }
     },
     {
-      "nome": "Leandro Misto Teste",
+      "nome": "Leandro Double Function",
       "cpf": "411.820.998-58",
-      "cnh": "16584987514",
+      "cnh": "95781236541",
       "telefone": "(46)8732-1354",
-      "email": "leandrinho@hotmail.com",
+      "email": "doublefunction@hotmail.com",
       "senha": "leandro1036",
       "perfil": "misto",
       "endereco": {
@@ -55,18 +55,16 @@
       "id": "-3H6Ga1"
     }
   ],
-  "carros": [],
-  "aluguel": [
+  "carros": [
     {
-      "kmRodados": "40",
-      "docCarro": "123456789",
-      "tipoCombustivel": "Gasolina",
-      "marca": "Pegout",
-      "modelo": "Gol Bola",
-      "placa": "Aloha",
-      "dataRet": "25/05/2019",
-      "dataEnt": "30/05/2019",
+      "kmRodados": "28",
+      "docCarro": "ASD4654",
+      "tipoCombustivel": "AS3DD4SA6",
+      "marca": "156SAD465",
+      "modelo": "24A6SD4",
+      "placa": "35AS7D68AS4",
       "id": 1
     }
-  ]
+  ],
+  "aluguel": []
 }

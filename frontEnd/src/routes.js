@@ -8,7 +8,7 @@ import MinhasLocacoes from './Cliente/MinhasLocacoes.vue'
 import Misto from './Misto/Misto.vue'
 
 export const routes = [
-    {path: '/login', name: 'login', component: Login},
+    {path: '/', name: 'login', component: Login},
     {path: '/cadastro', name: 'cadastro', component: Cadastro},
     {path: '/alugador', name: 'alugador', component: Alugador},
     {path: '/cliente', name: 'cliente', component: Cliente},

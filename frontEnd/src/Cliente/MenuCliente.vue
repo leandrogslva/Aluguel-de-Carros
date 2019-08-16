@@ -48,7 +48,14 @@
                     <v-card>
                         <v-card-title 
                         class="indigo darken-3"
-                        style="color: white">Preencha o tempo para locação</v-card-title>
+                        style="color: white">Preencha o tempo para locação
+                        <v-spacer></v-spacer>
+                        <v-btn
+                        text
+                        @click="dialogAluguel = false">
+                            <v-icon color="white">mdi-close</v-icon>
+                        </v-btn>
+                        </v-card-title>
                         <v-card-text>       
                             <v-container grid-list-md>
                                 <v-layout row wrap>

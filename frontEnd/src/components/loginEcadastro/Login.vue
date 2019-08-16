@@ -21,7 +21,13 @@
                         :type="mostrarSenha ? 'text' : 'password'">
                         </v-text-field>
                     </v-flex>
-                    
+
+                   <!--  <v-btn
+                        text
+                        color="indigo darken-3">
+                            Esqueceu sua senha?
+                    </v-btn> -->
+
                     <v-layout row wrap>
                         <v-flex xs9>
                             <v-btn
@@ -37,6 +43,14 @@
                             :loading="loadingLogar"
                             style="margin-left: 25px; color: white;font-size: 13px"
                             @click="logar()"> Entrar </v-btn>
+
+                            <v-snackbar 
+                            top
+                            color="error"
+                            v-model="snackbarLogin">
+                            Email ou senha incorreto
+                            <v-icon color="white">mdi-close-circle</v-icon>
+                            </v-snackbar>
                         </v-flex>
                     </v-layout>
                 </v-card-text>
@@ -53,6 +67,7 @@ export default {
     
     data(){
         return{
+            snackbarLogin: false,
             usuariosCadastrados: [],
             mostrarSenha: false,
             loadingLogar: false,
@@ -90,6 +105,12 @@ export default {
                         this.loadingLogar = false
                         this.verificaPerfilDoUsuarioLogado()
                     }, 1500)
+                }else{
+                    setTimeout(() =>{
+                        this.snackbarLogin = true
+                        this.loadingLogar = false
+                    }, 1500)
+                    this.snackbarLogin = false
                 }
             }
         },

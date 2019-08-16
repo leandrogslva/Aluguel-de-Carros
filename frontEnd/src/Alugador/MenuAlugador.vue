@@ -56,9 +56,36 @@
                                 <v-btn
                                 color="indigo darken-2"
                                 style="color: white; float: right"
-                                @click="publicarCarro()">Publicar Carro</v-btn>    
+                                @click="dialogoPublicarCarro = true">Publicar Carro</v-btn>    
                             </v-flex> 
 
+                            <v-dialog v-model="dialogoPublicarCarro" max-width="280px">
+                                <v-card>
+                                    <v-card-title
+                                    class="elevation-2 indigo darken-3"
+                                    style="color:white"
+                                    >Confirmar Publicação</v-card-title>
+                                    <v-card-text 
+                                    style="height: 200px; 
+                                    font-size: 20px; 
+                                    color:black">
+                                        <br><br>
+                                        Deseja publicar este carro para possíveis locações?
+                                        <br><br><br><br>
+                                            <v-btn
+                                            text
+                                            color="indigo darken-3"
+                                            @click="dialogoPublicarCarro = false">Não
+                                            </v-btn>
+                                            <v-btn
+                                            text
+                                            style="float: right"
+                                            color="indigo darken-3"
+                                            @click="publicarCarro()">Sim
+                                            </v-btn>       
+                                    </v-card-text>
+                                </v-card>
+                            </v-dialog>
                         </v-layout>
                     </v-card-text>
                 </v-card>
@@ -74,6 +101,7 @@ export default {
 
     data(){
         return{
+            dialogoPublicarCarro: false,
             carro: {
                 kmRodados: '',
                 docCarro: '',
@@ -99,6 +127,7 @@ export default {
             .then(resposta => console.log(resposta))
             .catch(erro => console.log(erro))
             this.carro = this.defaultData
+            this.dialogoPublicarCarro = false
         },
     }
 }

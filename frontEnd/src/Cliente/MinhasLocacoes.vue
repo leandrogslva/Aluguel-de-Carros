@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-container style="margin-top: 60px">
-            <v-container>
+            <v-container v-if="carrosAlugados != ''">
                 <v-layout row wrap>
                     <v-flex xs6 v-for="locacoes in carrosAlugados"
                     :key="locacoes.id"
@@ -19,7 +19,7 @@
                                     </v-btn>
                                     <v-btn
                                     text
-                                    @click="excluirLocacao(locacoes)">
+                                    @click="dialogoDeExclusao = true;pegarLocacaoParaExcluir(locacoes)">
                                         <v-icon color="white">mdi-delete</v-icon>
                                     </v-btn>
                             </v-toolbar>
@@ -105,11 +105,53 @@
                                         </v-flex>
                                     </v-list-item-content>
                                 </v-list-item>
+                                <v-dialog v-model="dialogoDeExclusao" width="265px">
+                                    <v-card>
+                                        <v-card-title class="elevation-2 indigo darken-3">Confirmar Exclusão</v-card-title>
+                                        <v-card-text
+                                        style="font-size:20px;
+                                        color:black">
+                                            <br><br>
+                                            Tem certeza que quer excluir esta locação?
+                                            <br><br><br><br>
+                                            <v-btn
+                                            text
+                                            color="indigo darken-3"
+                                            @click="dialogoDeExclusao = false">
+                                                Não
+                                            </v-btn>
+                                            <v-btn
+                                            text
+                                            style="float: right"
+                                            color="indigo darken-3"
+                                            @click="excluirLocacao()">
+                                                Sim
+                                            </v-btn>
+                                        </v-card-text>
+                                    </v-card>
+                                </v-dialog>
                             </v-form>    
                         </v-card>
                     </v-flex>
                 </v-layout>
             </v-container>
+
+            <v-container v-else>
+                <v-card max-width="500px">
+                    <v-card-title style="color:white" class="light-blue"> Ops...
+                        <v-spacer></v-spacer>
+                        <v-icon color="white">mdi-emoticon-sad</v-icon>
+                    </v-card-title>
+                    <v-card-text 
+                    style="height: 250px; color: black;"
+                    class="elevation-2
+                    text-center
+                    headline"><br><br>
+                        Você não possui nenhuma locação até o momento...
+                    </v-card-text>
+                </v-card>
+            </v-container>
+            
         </v-container>
     </div>
 </template>
@@ -129,9 +171,11 @@ export default {
 
     data(){
         return{
+            dialogoDeExclusao: false,
             carrosAlugados: [],
             dataMask: '##/##/####',
             editarCamposAluguel: true,
+            objetoParaExcluir: {},
         }
     },
 
@@ -144,11 +188,15 @@ export default {
             }).catch(erro => console.log(erro))
         },
 
-        excluirLocacao(locacoes){
-            service.apaga(locacoes)
+        pegarLocacaoParaExcluir(locacoes){
+            this.objetoParaExcluir = locacoes
+        },
+
+        excluirLocacao(){
+            service.apaga(this.objetoParaExcluir)
             .then(resposta => console.log(resposta))
-            this.carrosAlugados.splice(locacoes,1)
             .catch(erro => console.log(erro))
+            this.carrosAlugados.splice(this.objetoParaExcluir,1)
         },
 
         async editarLocacao(locacoes){

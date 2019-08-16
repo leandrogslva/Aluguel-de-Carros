@@ -134,14 +134,14 @@ export default {
 
      methods:{
        goToLogin(){
-           this.$router.push({path: '/login'})
+           this.$router.push({path: '/'})
        },
 
        logOut(){
             setTimeout(() =>{
                 this.$store.state.usuarioLogado = this.defaultData
                 this.$store.state.logado = false
-                this.$router.push({path: '/login'})
+                this.$router.push({path: '/'})
             }, 1000)
         },
 
