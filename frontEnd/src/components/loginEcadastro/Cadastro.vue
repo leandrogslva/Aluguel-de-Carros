@@ -230,7 +230,7 @@ export default {
            this.loadingVoltarParaOLogin = true
            setTimeout(() =>{
                 this.loadingVoltarParaOLogin = false
-                this.$router.push({path:'/login'})
+                this.$router.push({path:'/'})
            }, 1500)   
         },
 
@@ -242,7 +242,7 @@ export default {
             setTimeout(() =>{
                 this.loadingFinalizarCriacaoDeConta = false
                 this.novaConta = this.defaultData
-                this.$router.push({path:'/login'})
+                this.$router.push({path:'/'})
             }, 1500)
         },
     }

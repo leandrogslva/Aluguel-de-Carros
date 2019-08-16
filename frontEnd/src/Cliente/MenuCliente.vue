@@ -59,38 +59,43 @@
                         <v-card-text>       
                             <v-container grid-list-md>
                                 <v-layout row wrap>
-                                    <v-flex xs6>
-                                        <v-text-field
-                                        v-mask="dataMask"
-                                        v-model="aluguel.dataRet"
-                                        label="Data de retirada:">
-                                        </v-text-field>
-                                    </v-flex>
+                                    <v-form>
+                                        <v-flex xs6>
+                                            
+                                            <v-text-field
+                                            v-mask="dataMask"
+                                            placeholder="dd/mm/aaaa"
+                                            v-model="aluguel.dataRet"
+                                            label="Data de retirada:">
+                                            </v-text-field>
+                                        </v-flex>
 
-                                    <v-flex xs6>
-                                        <v-text-field
-                                        v-model="aluguel.dataEnt"
-                                        v-mask="dataMask"
-                                        label="Data da entrega:">
-                                        </v-text-field>
-                                    </v-flex>
-                                    
-                                    <v-flex xs4>
-                                        <v-text-field
-                                        v-model="aluguel.valor"
-                                        disabled
-                                        label="Valor a pagar:">
-                                        </v-text-field>
-                                    </v-flex>
+                                        <v-flex xs6>
+                                            <v-text-field
+                                            v-model="aluguel.dataEnt"
+                                            placeholder="DD/MM/AAAA"
+                                            v-mask="dataMask"
+                                            label="Data da entrega:">
+                                            </v-text-field>
+                                        </v-flex>
+                                        
+                                        <v-flex xs4>
+                                            <v-text-field
+                                            v-model="aluguel.valor"
+                                            disabled
+                                            label="Valor a pagar:">
+                                            </v-text-field>
+                                        </v-flex>
 
-                                    <v-flex xs8>
-                                        <v-btn
-                                        style="float: right; margin-top: 20px; color: white"
-                                        class="indigo darken-3"
-                                        @click="alugarCarro()">
-                                            Finalizar
-                                        </v-btn>
-                                    </v-flex>    
+                                        <v-flex xs8>
+                                            <v-btn
+                                            style="float: right; margin-top: 20px; color: white"
+                                            class="indigo darken-3"
+                                            @click="alugarCarro()">
+                                                Finalizar
+                                            </v-btn>
+                                        </v-flex>
+                                    </v-form>    
                                 </v-layout>
                             </v-container>
                         </v-card-text>

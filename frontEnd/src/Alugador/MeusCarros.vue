@@ -28,59 +28,69 @@
                         </v-toolbar>
 
                         <v-spacer></v-spacer>
+                        <v-form v-model="formularioCompleto">
+                            <v-list-item class="elevation-3">
+                                <v-list-item-content>
+                                    <b>
+                                    
+                                    <v-text-field
+                                    v-model="carros.kmRodados"
+                                    :rules="[rules.required]"
+                                    type="number"
+                                    :disabled="!campoEditavel"
+                                    label="KM's Rodados:"
+                                    ></v-text-field>
+                                    
+                                    <v-text-field
+                                    v-model="carros.docCarro"
+                                    :rules="[rules.required, rules.renavam]"
+                                    v-mask="renavamMask"
+                                    :disabled="!campoEditavel"
+                                    label="Documento do Carro:">
+                                    </v-text-field>
 
-                        <v-list-item class="elevation-3">
-                            <v-list-item-content>
-                                <b>
-                                
-                                <v-text-field
-                                v-model="carros.kmRodados"
-                                :disabled="!campoEditavel"
-                                label="KM's Rodados:"
-                                ></v-text-field>
-                                
-                                <v-text-field
-                                v-model="carros.docCarro"
-                                :disabled="!campoEditavel"
-                                label="Documento do Carro:">
-                                </v-text-field>
+                                    <v-text-field
+                                    v-model="carros.tipoCombustivel"
+                                    :rules="[rules.required]"
+                                    :disabled="!campoEditavel"
+                                    label="Tipo de Combustível:">
+                                    </v-text-field>
 
-                                <v-text-field
-                                v-model="carros.tipoCombustivel"
-                                :disabled="!campoEditavel"
-                                label="Tipo de Combustível:">
-                                </v-text-field>
+                                    <v-text-field
+                                    v-model="carros.marca"
+                                    :disabled="!campoEditavel"
+                                    label="Marca:">
+                                    </v-text-field>
 
-                                <v-text-field
-                                v-model="carros.marca"
-                                :disabled="!campoEditavel"
-                                label="Marca:">
-                                </v-text-field>
+                                    <v-text-field
+                                    v-model="carros.modelo"
+                                    :rules="[rules.required]"
+                                    :disabled="!campoEditavel"
+                                    label="Modelo:">
+                                    </v-text-field>
 
-                                <v-text-field
-                                v-model="carros.modelo"
-                                :disabled="!campoEditavel"
-                                label="Modelo:">
-                                </v-text-field>
+                                    <v-text-field
+                                    v-model="carros.placa"
+                                    :rules="[rules.required]"
+                                    v-mask="placaMask"
+                                    :disabled="!campoEditavel"
+                                    label="Placa:">
+                                    </v-text-field>
+                                    </b>
 
-                                <v-text-field
-                                v-model="carros.placa"
-                                :disabled="!campoEditavel"
-                                label="Placa:">
-                                </v-text-field>
-                                </b>
-
-                                <v-flex>
-                                    <v-btn v-if="campoEditavel != false"
-                                    class="light-blue"
-                                    style="float: right; color: white"
-                                    @click="editarCarro()">
-                                        Salvar
-                                    </v-btn>
-                                </v-flex>
-
-                            </v-list-item-content>
-                        </v-list-item>
+                                    <v-flex>
+                                        <v-btn v-if="campoEditavel != false"
+                                        class="light-blue"
+                                        :disabled="!formularioCompleto"
+                                        style="float: right; color: white"
+                                        @click="editarCarro()">
+                                            Salvar
+                                        </v-btn>
+                                    </v-flex>
+                                    
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-form>
                         <v-dialog v-model="dialogoDeExclusao" width="265px">
                             <v-card>
                                 <v-card-title class="elevation-2 indigo darken-3">Confirmar Exclusão</v-card-title>
@@ -131,19 +141,32 @@
 
 <script>
 import service from './AlugadorService.js'
+import {mask} from 'vue-the-mask'
 
 export default {
+    directives:{
+        mask
+    },
+
     created(){
         this.pegarTodosOsCarros()
     },
 
     data(){
         return{
+            placaMask: 'SSS-####',
+            renavamMask: '###########',
+            formularioCompleto: false,
             dialogoDeExclusao: false,
             carrosParaAlugar: [],
             campoEditavel: false,
             objetoParaEditar: {},
-            objetoParaExcluir: {}
+            objetoParaExcluir: {},
+            rules: {
+                required: value => !!value || 'Campo Obrigatório',
+                renavam: v => v.length == 11 || 'Digite um RENAVAM válido',
+                minPlaca: v=> v.length == 8 || 'Digite uma placa válida'
+            }
         }
     },
     
