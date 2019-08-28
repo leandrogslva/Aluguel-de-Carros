@@ -22,12 +22,6 @@
                         </v-text-field>
                     </v-flex>
 
-                   <!--  <v-btn
-                        text
-                        color="indigo darken-3">
-                            Esqueceu sua senha?
-                    </v-btn> -->
-
                     <v-layout row wrap>
                         <v-flex xs9>
                             <v-btn
@@ -47,9 +41,10 @@
                             <v-snackbar 
                             top
                             color="error"
-                            v-model="snackbarLogin">
+                            v-model="snackbarErroLogin"
+                            :timeout="2000">
                             Email ou senha incorreto
-                            <v-icon color="white">mdi-close-circle</v-icon>
+                                <v-icon color="white">mdi-close-circle</v-icon>
                             </v-snackbar>
                         </v-flex>
                     </v-layout>
@@ -67,25 +62,17 @@ export default {
     
     data(){
         return{
-            snackbarLogin: false,
-            usuariosCadastrados: [],
+            snackbarErroLogin: false,
             mostrarSenha: false,
             loadingLogar: false,
             loadingParaCriarNovaConta: false,
-            
             login: {
                 email: '',
                 senha: ''
             },
         }
-    },
-
-    created(){
-        this.pegarUsuariosCadastrados()
-    },
-    
+    },    
     methods: {
-
         irParaPaginaNovaConta(){
            this.loadingParaCriarNovaConta = true
            setTimeout(() =>{
@@ -96,23 +83,23 @@ export default {
 
         logar(){
             this.loadingLogar = true   
-            for(let i = 0; i < this.usuariosCadastrados.length; i++){
-                if(this.login.email == this.usuariosCadastrados[i].email 
-                 && this.login.senha == this.usuariosCadastrados[i].senha){
-                     setTimeout(() =>{
-                        this.$store.state.usuarioLogado = this.usuariosCadastrados[i]
-                        this.$store.state.logado = true
-                        this.loadingLogar = false
-                        this.verificaPerfilDoUsuarioLogado()
-                    }, 1500)
-                }else{
-                    setTimeout(() =>{
-                        this.snackbarLogin = true
-                        this.loadingLogar = false
-                    }, 1500)
-                    this.snackbarLogin = false
+            service.logar(this.login)
+            .then(resposta => {
+                console.log(resposta)
+                this.loadingLogar = false
+                this.$store.state.usuarioLogado = resposta.data;
+                this.$store.state.logado = true
+                this.verificaPerfilDoUsuarioLogado()
+            }).catch(erro => {
+                console.log(erro)
+                if(erro.request.status == 404){
+                   this.snackbarErroLogin = true
                 }
-            }
+                setTimeout(()=> {
+                    this.snackbarErroLogin = false
+                    this.loadingLogar = false
+                },1500) 
+            })
         },
 
         verificaPerfilDoUsuarioLogado(){
@@ -123,14 +110,6 @@ export default {
             }else{
                 this.$router.push({path: '/misto'})
             }
-        },
-
-        pegarUsuariosCadastrados(){
-            service.todos()
-            .then(resposta => {
-                console.log(resposta)
-                this.usuariosCadastrados = resposta.data
-            }).catch(erro => console.log(erro))
         },
     }    
 }
