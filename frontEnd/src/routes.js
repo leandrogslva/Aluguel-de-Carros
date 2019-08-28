@@ -6,6 +6,7 @@ import MinhasInformacoes from './components/loginEcadastro/MinhasInformacoes.vue
 import MeusCarros from './Alugador/MeusCarros.vue'
 import MinhasLocacoes from './Cliente/MinhasLocacoes.vue'
 import Misto from './Misto/Misto.vue'
+import MeusAlugueis from './Alugador/MeusAlugueis.vue'
 
 export const routes = [
     {path: '/', name: 'login', component: Login},
@@ -15,5 +16,6 @@ export const routes = [
     {path: '/minhasInformacoes', name: 'informacoes', component: MinhasInformacoes},
     {path: '/meusCarros', name: 'meusCarros', component: MeusCarros},
     {path: '/minhasLocacoes', name: 'minhasLocacoes', component: MinhasLocacoes},
-    {path: '/misto', name: 'misto', component: Misto}
+    {path: '/misto', name: 'misto', component: Misto},
+    {path: '/meusAlugueis', name: 'meusAlugueis', component: MeusAlugueis},
 ]

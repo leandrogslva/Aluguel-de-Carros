@@ -21,31 +21,14 @@
   ],
   "carros": [
     {
-      "kmRodados": "78",
-      "docCarro": "53498798741",
+      "kmRodados": "287",
+      "docCarro": "65654987978",
       "tipoCombustivel": "Gasolina",
-      "marca": "",
+      "marca": "PEGOU",
       "modelo": "GOL BOLA",
-      "placa": "ASD-5465",
+      "placa": "ASD-5497",
+      "valorCarro": "25.00",
       "id": 1
-    },
-    {
-      "kmRodados": "3424243",
-      "docCarro": "34232453245",
-      "tipoCombustivel": "45435435",
-      "marca": "345435345543",
-      "modelo": "54335445453",
-      "placa": "eds-4444",
-      "id": 2
-    },
-    {
-      "kmRodados": "945654",
-      "docCarro": "55465465489",
-      "tipoCombustivel": "asdas",
-      "marca": "asdsad",
-      "modelo": "asdasd",
-      "placa": "dsa-2144",
-      "id": 3
     }
   ],
   "aluguel": []

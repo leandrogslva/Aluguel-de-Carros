@@ -6,11 +6,6 @@
                     <v-flex xs6 v-for="carros in carrosParaAlugar"
                     :key="carros.id"
                     style="padding: 5px">
-                        <v-card
-                        max-width="800"
-                        class="mx-auto">
-                        </v-card>
-
                         <v-toolbar color="light-blue" dark>
                             <v-toolbar-title>{{carros.modelo}}</v-toolbar-title>
                             <v-spacer></v-spacer>
@@ -34,7 +29,7 @@
                                     <b>
                                     
                                     <v-text-field
-                                    v-model="carros.kmRodados"
+                                    v-model="carros.kmsRodados"
                                     :rules="[rules.required]"
                                     type="number"
                                     :disabled="!campoEditavel"
@@ -42,7 +37,7 @@
                                     ></v-text-field>
                                     
                                     <v-text-field
-                                    v-model="carros.docCarro"
+                                    v-model="carros.documentoCarro"
                                     :rules="[rules.required, rules.renavam]"
                                     v-mask="renavamMask"
                                     :disabled="!campoEditavel"
@@ -90,6 +85,7 @@
                                     
                                 </v-list-item-content>
                             </v-list-item>
+                            
                         </v-form>
                         <v-dialog v-model="dialogoDeExclusao" width="265px">
                             <v-card>
@@ -181,7 +177,8 @@ export default {
 
         excluirCarro(){
             service.apaga(this.objetoParaExcluir)
-            this.carrosParaAlugar.splice(this.objetoParaExcluir, 1);
+            this.carrosParaAlugar.splice(this.objetoParaExcluir, 1); 
+            this.dialogoDeExclusao = false
         },
         
         habilitarCamposParaEdicao(carro){
